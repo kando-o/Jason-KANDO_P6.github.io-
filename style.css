@@ -1,0 +1,138 @@
+*, ::before, ::after{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+header {
+    position: relative;
+    padding-top: 2rem;
+    font-weight: 600;
+}
+.logo img{
+    width: 11em;
+    margin-left: 2em;
+}
+
+.contenu{
+    position: absolute;
+    top: .5em;
+    left: 50%;    
+    transform: translate(-50%);
+    width: 11em;
+    text-align: center;
+    text-decoration: none;
+    list-style: none;
+    border-radius: .2em;
+    color: black;
+    background-color: chocolate;
+}
+.contenu:hover{
+    border: 1px black solid;
+}
+.menu{
+    position: absolute;
+    top: 2em;
+    /* border: red solid; */
+    left: 50%;
+    transform: translate(-50%);
+}
+.menu-ul{
+    display: flex;
+}
+.menu-ul a{
+    list-style: none;
+    text-decoration: none;
+    text-align: center;
+    font-size: .6em;
+    margin-left: 1em;
+    padding: 0.4em;
+    border-radius: 2em;
+    border: #901C1C 1.4px solid;
+    color: #901C1C;
+}
+.container{
+    width: 97%;
+    margin: 2em auto;
+    height: auto;
+    /* border: red 1px solid; */
+}
+.titre_principal{
+    position: absolute;
+    right: 5%;
+    top: 3em;
+    font-weight: 500;
+    color: #901C1C;
+    font-size: 1em;
+}
+.container_photographe{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: auto;
+    /* border: springgreen  1px solid; */
+    height: auto;
+}
+.cardPhotographer h2{
+    font-size: 2em;
+    font-weight: 200;
+    text-align: center;
+    color: #d3573c;
+}
+.cardPhotographer a{
+    list-style: none;
+    text-decoration: none;
+}
+.info{
+    height: auto;
+    text-align: center;
+}
+.info p:nth-child(1) {
+    color: #901C1C;
+    font-size: 1em;
+}
+.info p:nth-child(3) {
+    font-size: .7em;
+    font-weight: 600;
+}
+.info p:nth-child(5) {
+    color: grey
+}
+.info p:nth-child(7) {
+    color: white;
+    /* display: none; */
+}
+
+.info a {
+    cursor: pointer;
+    border-radius: 2em;
+    color: #901C1C ;
+}
+.cardPhotographer{
+    position: relative;
+    width: 300px;
+    min-width: 200px;
+    margin: 2em 3em ;
+    text-align: center;
+    border-radius: 1em;
+    box-shadow: 0 1px 6px rgba(51, 51, 51, 0.192);
+    min-height: 20em;
+    overflow: hidden;
+}
+.cardPhotographer img {
+    height: 13em;
+    clip-path: circle(40%);
+    width: 80%;
+    object-fit: cover;
+}
+
+        /* *********** Page Photographe************  */
+
+.top_Photographer img{
+    height: 13em;
+    clip-path: circle(40%);
+    width: 40%;
+    object-fit: cover;
+}
