@@ -127,12 +127,3 @@ header {
     width: 80%;
     object-fit: cover;
 }
-
-        /* *********** Page Photographe************  */
-
-.top_Photographer img{
-    height: 13em;
-    clip-path: circle(40%);
-    width: 40%;
-    object-fit: cover;
-}
