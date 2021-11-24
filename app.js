@@ -80,24 +80,24 @@ function utils() {
 
         containerPagePhotographer.innerHTML = objData.photographers.map(
             (top) => // Carte info + btn cotacte + photo artist
-            //     `
-            //     <div class="container">
+                `
+                <div class="container">
                         
-            //     <section class="top_Photographer ">
+                <section class="top_Photographer ">
 
-            //         <div class="infoPhotograper">                        
-            //             <h2> ${top.name} </h2>
-            //             <h3>${top.city} , ${top.country}</h3>
-            //             <p>${top.tagline}</p>
-            //         </div> 
+                    <div class="infoPhotograper">                        
+                        <h2> ${top.name} </h2>
+                        <h3>${top.city} , ${top.country}</h3>
+                        <p>${top.tagline}</p>
+                    </div> 
 
-            //         <button>Contactez-moi</button>
-            //         <img src="Sample_Photos/Photographers-ID-Photos/${top.portrait}" alt="Portrait des artistes">
+                    <button>Contactez-moi</button>
+                    <img src="Sample_Photos/Photographers-ID-Photos/${top.portrait}" alt="Portrait des artistes">
 
-            //     </section>
+                </section>
                     
-            // </div>
-            //     `
+            </div>
+                `
 
         ).join("")
     }
