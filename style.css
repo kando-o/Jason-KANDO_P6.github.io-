@@ -53,35 +53,31 @@ header {
     border: #901C1C 1.4px solid;
     color: #901C1C;
 }
-.container{
-    width: 97%;
-    margin: 2em auto;
-    height: auto;
-    /* border: red 1px solid; */
-}
 .titre_principal{
     position: absolute;
     right: 5%;
-    top: 3em;
-    font-weight: 500;
+    top: 1em;
+    font-size: 2em;
+    font-weight: 600;
     color: #901C1C;
-    font-size: 1em;
 }
-.container_photographe{
+
+#main{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: auto;
-    /* border: springgreen  1px solid; */
+    width: 97%;
+    margin: 2em auto;
     height: auto;
+    /* border: springgreen  1px solid; */
 }
-.cardPhotographer h2{
+.cartePhotographer h2{
     font-size: 2em;
     font-weight: 200;
     text-align: center;
     color: #d3573c;
 }
-.cardPhotographer a{
+.cartePhotographer a{
     list-style: none;
     text-decoration: none;
 }
@@ -100,8 +96,9 @@ header {
 .info p:nth-child(5) {
     color: grey
 }
-.info p:nth-child(7) {
-    color: white;
+.info li {
+    color: #901C1C;
+    border: solid #901C1C 1.3px;
     /* display: none; */
 }
 
@@ -110,7 +107,7 @@ header {
     border-radius: 2em;
     color: #901C1C ;
 }
-.cardPhotographer{
+.cartePhotographer{
     position: relative;
     width: 300px;
     min-width: 200px;
@@ -121,7 +118,7 @@ header {
     min-height: 20em;
     overflow: hidden;
 }
-.cardPhotographer img {
+.cartePhotographer img {
     height: 13em;
     clip-path: circle(40%);
     width: 80%;
