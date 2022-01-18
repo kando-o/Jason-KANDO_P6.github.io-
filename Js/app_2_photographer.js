@@ -84,17 +84,181 @@ async function main() {
 
 async function formulaire() {
 	await getData()
+	//Bouton Formulaire
 	const bgFormulaire = document.querySelector('.bgFormulaire')
 	const btnContactPhotographer = document.querySelector('.btn_ContactPhotographer')
 	const btnFormulaireClose = document.querySelector('.btnFormulaireClose')
-	
+
 	btnContactPhotographer.addEventListener('click', () => {
 		bgFormulaire.style.display = "block"
 	})
 	btnFormulaireClose.addEventListener('click', () => {
 		bgFormulaire.style.display = "none"
 	})
+	// Validation | Regex Formulaire
+	const formulaire = document.querySelector('.formulaire')
+	const prenom = document.getElementById('prenom')
+	const nom = document.getElementById('nom')
+	const email = document.getElementById('email')
+	const spanErrorPrenom = document.querySelector('.mesgErrorPrenom')
+	const spanErrorNom = document.querySelector('.mesgErrorNom')
+	const spanErrorEmail = document.querySelector('.mesgErrorEmail')
+	const submitForm = document.querySelector('.submit')
+	console.log();
+	
+	// Test ESSAYE D'UTILISER LA MÊME FONCTION POUR LES CHAMPS PRÉNOM ET NOM
+
+	const itemValidation = {
+		champPrenom_Nom : null,
+		champEmail : null,
+		champCommentaire : null
+	}
+	function initFormulaire() {
+		// itemValidation.champPrenom_Nom = validation()
+	}
+	// initFormulaire()
+
+	prenom.addEventListener('input', (e) => {
+		validation(this)
+	})
+	nom.addEventListener('input', (e) => {
+		validationNom(this)
+	})
+	email.addEventListener('input', (e) => {
+		validationEmail(this)
+	})
+	
+	function validation() {
+		
+	champInputText = false
+	let msgError;
+	spanErrorPrenom.innerHTML = msgError
+
+	console.log(prenom.value);
+		if (!/[a-z]/g.test(prenom.value)) {
+			console.log('il manque une minuscule');
+			msgError = 'il manque une minuscule';
+		} else if (!/[A-Z]/g.test(prenom.value)) {
+			console.log('il manque une majuscule');
+			msgError = 'il manque une majuscule'
+		} else if (!/[0-9]/g.test(prenom.value)) {
+			console.log('il y manque 1 chiffre');
+			msgError = 'il y manque 1 chiffre'
+		} else if (prenom.value.length < 2) {
+			console.log('il faut au moins 2 carractères');
+			msgError = 'il faut au moins 2 carractères'
+		} else {
+			console.log('All condition true');
+			champInputText = true
+		}
+		
+		if (champInputText == true) {
+			console.log('ChampsInputText OK');
+			spanErrorPrenom.innerHTML = ""
+			prenom.classList.remove('champInputText-invalid')
+			prenom.classList.add('champInputText-valid')
+			return true
+
+		} else {
+			console.log('ChampsInputText NOK');
+			spanErrorPrenom.innerHTML = msgError
+			prenom.classList.remove('champInputText-valid')
+			prenom.classList.add('champInputText-invalid')
+			return false
+
+		}
+
+	}
+
+	function validationNom() {
+		console.log(nom.value);
+
+		champInputText = false
+		if (!/[a-z]/g.test(nom.value)) {
+			console.log('il manque une minuscule');
+			msgError = 'il manque une minuscule';
+		} else if (!/[A-Z]/g.test(nom.value)) {
+			console.log('il manque une majuscule');
+			msgError = 'il manque une majuscule'
+		} else if (!/[0-9]/g.test(nom.value)) {
+			console.log('il y manque 1 chiffre');
+			msgError = 'il y manque 1 chiffre'
+		} else if (nom.value.length < 2) {
+			console.log('il faut au moins 2 carractères');
+			msgError = 'il faut au moins 2 carractères'
+		} else {
+			console.log('All condition true');
+			champInputText = true
+		}
+
+		if (champInputText == true) {
+			console.log('ChampsInputText OK');
+			spanErrorNom.innerHTML = ""
+			nom.classList.remove('champInputText-invalid')
+			nom.classList.add('champInputText-valid')
+			return true
+		} else {
+			console.log('ChampsInputText NOK');
+			spanErrorNom.innerHTML = msgError
+			nom.classList.remove('champInputText-valid')
+			nom.classList.add('champInputText-invalid')
+			return false
+
+		}
+	}
+
+	function validationEmail() {
+		const regexEmail = /\S+@\S+\.\S+/;
+		champInputText = false
+		let msgError
+		console.log(email.value);
+
+		if (email.validity.valid) {
+			msgError = 'Mail Valid'
+			champInputText = true
+		} else {
+			msgError = 'Mail Invalid'
+		}
+
+		if (champInputText == true) {
+			spanErrorEmail.innerHTML = ''
+			email.classList.remove('champInputText-invalid')
+			email.classList.add('champInputText-valid')
+		} else {
+			spanErrorEmail.innerHTML = msgError
+			email.classList.remove('champInputText-valid')
+			email.classList.add('champInputText-invalid')
+		}
+
+	}
+
+	formulaire.addEventListener('submit', (e) => {
+		// e.preventDefault()
+		console.log('clickForm');
+
+		if ( validationNom(nom) && validation(prenom) ) {
+			formulaire.submit()
+			console.log('condition sub OK');
+			bgFormulaire.style.display = "none"
+
+
+		} else {
+			e.preventDefault()
+			console.log('condition sub NOK');
+
+		}
+	})
+
+
+		
+
+		
+			
 }
+		
+
+
+
 function render(){
 	// photographer profile
     initPhotographer(PHOTOGRAPHER);
