@@ -15,19 +15,35 @@ body{
     /* box-shadow: 0 1px 6px rgba(245, 2, 2, 0.192); */
 }
 .bgFormulaire{
+    /* visibility: hidden; */
     display: none;
     position: fixed;
     width: 100%;
     height: 100%;
-    /* z-index: 1099; */
-     left: 0; 
-    right: 0;
-    bottom: 0;
     top: 0; 
-    /* background-color: rgb(243, 203, 199); */
-
+    right: 0; 
+    bottom: 0; 
+    left: 0; 
+    background: #333333d3;
+    /* z-index: 97; */
 }
 .formulaire{
+    display: none;
+    position: fixed;
+    width: 40em;
+    min-width: 320px;
+    height: 43em;
+    margin: 1rem auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: salmon;
+    border-radius: 1em;
+    box-shadow: 2px 2px 10px rgba(2, 2, 2, 0.726);
+    z-index: 99;
+}
+.modal_merci{
+    display: none;
     position: relative;
     width: 40em;
     height: 43em;
@@ -35,6 +51,45 @@ body{
     background-color: salmon;
     border-radius: 1em;
     box-shadow: 2px 2px 10px rgba(2, 2, 2, 0.726);
+    z-index: 100;
+}
+.close-modal-merci::after,
+.close-modal-merci::before {
+    position:absolute;
+    top: 2rem;
+    right: 2rem;
+    content: "";
+    height: 2.5rem;
+    width: .3rem;
+    background-color: #fff;
+    cursor: pointer;
+}
+.close-modal-merci::before {
+    transform: rotate(45deg);
+}
+.close-modal-merci::after {
+  transform: rotate(-45deg);
+}
+.modal_merci p{
+    text-align: center;
+    position: relative;
+    font-size: 1.5em;
+    top: 25rem;
+    color: white;
+}
+.btn-merci{
+    position: relative;
+    display: block;
+    top: 30rem;
+    width: 25%;
+    padding: .6em;
+    font-size: 1.5em;
+    color: whitesmoke;
+    margin: 0 auto;
+    background-color: darkred;
+    border-radius: .2em;
+    border: none;
+    cursor: pointer;
 }
 
 .champInputText-invalid{
@@ -50,7 +105,6 @@ body{
 .champInputText-valid{
     box-shadow: green 4px 4px 5px;
 }
-
 .titre_formulaire{
     margin: .5em 2em
 }
@@ -93,7 +147,9 @@ body{
     border: none;
     cursor: pointer;
 }
-
+.btnFormulaireClose{
+    border: none;
+}
 .btnFormulaireClose::before, 
 .btnFormulaireClose::after{
     position: absolute;
@@ -111,13 +167,8 @@ body{
 .btnFormulaireClose::before{
     transform: rotate(40deg);
 }
-
-.btnFormulaireClose p{
-    font-size: 2rem;
-    color: red;
-}
 .bloc_top{
-    width: 90%;
+    width: 95%;
     margin: 2em;
 }
 .bloc_top img{
@@ -168,11 +219,11 @@ body{
     color: black;
     background-color: salmon;
 }
-.trie{
+.trieAll{
     display: flex;
     margin-left: 3em;
 }
-.trie select{
+.trieAll select{
     color: whitesmoke;
     width: 10em;
     margin-left:2em;
@@ -181,7 +232,7 @@ body{
     padding: 1em;
     border-radius: .5em;
 }
-.trie option{
+.trieAll option{
     color: whitesmoke;
     font-size: 1.2em;
     border-bottom: 1px solid whitesmoke;
@@ -190,7 +241,7 @@ body{
 /* .trie option[value]{   
      color:red;
 } */
-.trie li:nth-child(3){
+.trieAll li:nth-child(3){
     border-bottom: none;
 }
 
@@ -211,9 +262,10 @@ body{
     height: 420px;
     margin: 1em auto;
     border-radius: 1rem;
-    /* box-shadow: 0 1px 6px rgba(230, 230, 230, 0.5); */
+    /* box-shadow: 0 1px 6px rgba(145, 28, 28, 0.5); */
 }
 .card_galerie{
+    
     width: 390px;
     height: 365px;
     margin: 0 auto;
@@ -221,14 +273,77 @@ body{
     border-radius: 1.5em;
     overflow: hidden;
 }
-
-
 .card_galerie img{
     border-radius: 1.5em 1.5em 0em 0em;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
+}
+
+.card_galerie video{
+    border-radius: 1.5em 1.5em 0em 0em;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: .2s;
+}
+.card_galerie video:hover{
+    height: 90%;
+}
+.controls{
+    position: relative;
+    width: 76.3%;
+    margin-left: 2.5em;
+    opacity: 1;
+    /* border: black solid; */
+    transition: 0.2s;
+}
+.card_galerieMaster:hover .controls{
+    opacity: 1;
+}
+
+.controls button{
+    padding: 7px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: salmon;
+}
+#mute{
+    position: relative;
+    top : -4px
+}
+#play_pause::before{
+    content: '\f144';
+    font-family: 'font Awesome 5 free';
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+}
+#play_pause .play::before{
+    content: '\f144';
+}
+#play_pause .pause::before{
+    content: '\f28b';
+}
+
+
+.orange_bar{
+    width: 100%;
+    background-color: black;
+    height: 5px;
+    cursor: pointer;
+}
+.orange_juice{
+    height: 5px;
+    background-color: salmon;
+    cursor: pointer;
+}
+.btnVideo{
+    margin-left: 1rem;
 }
 .titre_photo{
     display: flex;
@@ -250,19 +365,20 @@ body{
     right: 0em;
     padding: .7em;
     background-color: salmon;
+    z-index: 95;
 }
 
 .lightBox{
+    display: none;
+    position: fixed;
     width: 100%; /*Pour prendre tout l'écran*/
     height: 100%;/*Pour prendre tout l'écran*/
-    position: fixed;
-    z-index: 1000;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     background: linear-gradient(45deg, #333, #000 );
-    display: none;
+    z-index: 102;
 }
 
 .btn-closeLightBox{

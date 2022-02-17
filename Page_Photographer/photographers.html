@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,33 +12,37 @@
 <body>
 
     <header>
-        <div role="banner" class="logo">
-            <a href="#"> <img src="/Sample_Photos/logo.PNG"  alt="logo"></a>        
+        <div role="banner" class="logo" aria-label="Retour à la page d'accueille">
+            <a aria-current="page" href="/index.html"> <img src="/Sample_Photos/logo.PNG"  alt="logo"></a>        
         </div>
     </header>
 
-    <main class="container_photographe">
-        <div class="bgFormulaire">
-            <form class="formulaire">
+    <main class="container_photographe" aria-hidden="false">
+
+        <div class="bgFormulaire" aria-hidden="true" role="backGround" > 
+        </div>
+
+            <form class="formulaire" aria-label="formulaire" role="dialog" aria-labelledby="titreFormulaire">
                 <div class="titre_formulaire">
-                    <h3>Contactez-moi</h3>
-                    <p class="btnFormulaireClose"></p>
-                    <h3>Mimi Keel</h3>
+                    <h3 id="titreFormulaire">Contactez-moi</h3>
+                    <button class="btnFormulaireClose"></button>
+                    <h2></h2>
+                    <br>
                 </div>
                 <div>
                     <label for="prenom">Prénom</label>
-                    <input type="text" placeholder="Prénom" name="prenom" id="prenom" class="prenom1">
+                    <input type="text" placeholder="Prénom" name="prenom" id="prenom" class="prenom1" required aria-required="true">
                     <span class="mesgErrorPrenom"></span>
                 </div>
                 <div>                
                     <label for="nom">Nom</label>
-                    <input type="text" placeholder="Nom" name="nom" id="nom" class="nom1">
+                    <input type="text" placeholder="Nom" name="nom" id="nom" class="nom1" required aria-required="true">
                     <span class="mesgErrorNom"></span>
 
                 </div>
                 <div>
                     <label for="Email">Email</label>
-                    <input type="email" placeholder="Email" name="email" id="email" required>
+                    <input type="email" placeholder="Email" name="email" id="email" required aria-required="true">
                     <span class="mesgErrorEmail"></span>
                 </div>
                 <div>
@@ -47,10 +51,16 @@
                     <textarea name="message" id="message" cols="30" rows="7" placeholder="Votre message"></textarea>
                     <span class="mesgErrorArea"></span>
                 </div>
-                <button class="submit"> Envoyer </button>
+                <button class="submit" type="submit"> Envoyer </button>
                 
             </form>
-        </div>
+            <div class="bg-modal-merci">
+                <div class="modal_merci">
+                  <span class="close-modal-merci"></span>
+                  <p>Votre forulaire a bien été pris en compte</p>
+                  <button class="btn-merci">Merci</button>
+                </div>
+              </div>
         
 
         <div class="contain_bloc_top">
@@ -61,71 +71,25 @@
             
         </div>
         <section class="galerie_Photographer"> 
-
             <!-- <div class="card_galerie">
-                <img  src="/Sample_Photos/Mimi keel/Portrait_Nora.jpg" alt="1" srcset="">
-                <div class="titre_photo">
-                    <p>Titre photo</p>
-                    <p> photo</p>
-                </div>
-            </div>
-            div
-            <div class="card_galerie">
-                <img  src="/Sample_Photos/Mimi keel/Animals_Rainbow.jpg" alt="2" srcset="">
-            </div>
-            <div class="titre_photo">
-                <p>Titre photo</p>
-                <p> photo</p>
-            </div>                    
-            div
-            <div class="card_galerie">
-                <img  src="/Sample_Photos/Mimi Keel/Portrait_Wednesday.jpg" alt="" srcset="">
-                <div class="titre_photo">
-                    <p>Titre photo</p>
-                    <p> photo</p>
-                </div>
-            </div>
-            <div class="card_galerie">
-                <img  src="/Sample_Photos/Mimi Keel/Travel_HillsideColor.jpg" alt="" srcset="">
-                <div class="titre_photo">
-                    <p>Titre photo</p>
-                    <p> photo</p>
-                </div>
-            </div>
-            <div class="card_galerie">
-                <img  src="/Sample_Photos/Mimi Keel/Portrait_Nora.jpg" alt="" srcset="">
-                <div class="titre_photo">
-                    <p>Titre photo</p>
-                    <p> photo</p>
-                </div>
-            </div>
-            <div class="card_galerie">
-                <img  src="/Sample_Photos/Mimi Keel/Portrait_Nora.jpg" alt="" srcset="">
-                <div class="titre_photo">
-                    <p>Titre photo</p>
-                    <p> photo</p>
-                </div>
             </div> -->
         </section>
 
-        <div class="lightBox">
+        <div class="lightBox" role="dialog" aria-label="carrousel" aria-modal="true">
 
             <button class="btn-closeLightBox" type="button">X</button>
             <img src="" alt="" class="img-visible-lightBox">
 
-            <button class="btnSlide--left" type="button">
+            <button class="btnSlide--left" aria-hidden="true" type="button">
                 <i class="fas fa-chevron-left"></i> 
             </button>
-            <button class="btnSlide--right" type="button">
+            <button class="btnSlide--right" aria-hidden="true type="button">
                 <i class="fas fa-chevron-right"></i> 
             </button>
         </div>
         <!-- <div class="prix">  
-            <p>Coeur </p>
-            <p>300e/jr </p>
         </div> -->
     </main>
-
     <!-- <script src="/app.js"></script> -->
     <script src="/Js/app_2_photographer.js"></script>
 

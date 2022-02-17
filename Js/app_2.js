@@ -46,6 +46,7 @@ async function cartePhotographer(carte) {
                 </div>
             </a>
                 <div class="info">
+
                 <p>${carte.country}, ${carte.city}</p> 
                 <p>${carte.name}</p> 
                 <p>${carte.tags}</p>
