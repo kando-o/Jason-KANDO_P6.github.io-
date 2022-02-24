@@ -178,7 +178,9 @@ body{
     margin: 2em 0em;
     object-fit: cover;
 }
-
+.infoPhotograper{
+    padding: 2rem
+}
 .infoPhotograper h1{
     color:#d3573c;
     font-size: 5em;
@@ -188,13 +190,12 @@ body{
 }
 .infoPhotograper p:nth-child(2){
     color:#901C1C ;
-    margin:1.5em 0em;
     font-size: 1.5em;
 }
 .infoPhotograper p:nth-child(3){
     color: rgb(80, 80, 80) ;
     font-size: 1.2em;
-
+    line-height: 3rem;
 }
 .card_Photographer{
     display: flex;
@@ -274,76 +275,18 @@ body{
     overflow: hidden;
 }
 .card_galerie img{
-    border-radius: 1.5em 1.5em 0em 0em;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
+
 }
 
 .card_galerie video{
-    border-radius: 1.5em 1.5em 0em 0em;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: .2s;
-}
-.card_galerie video:hover{
-    height: 90%;
-}
-.controls{
-    position: relative;
-    width: 76.3%;
-    margin-left: 2.5em;
-    opacity: 1;
-    /* border: black solid; */
-    transition: 0.2s;
-}
-.card_galerieMaster:hover .controls{
-    opacity: 1;
-}
-
-.controls button{
-    padding: 7px;
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    color: salmon;
-}
-#mute{
-    position: relative;
-    top : -4px
-}
-#play_pause::before{
-    content: '\f144';
-    font-family: 'font Awesome 5 free';
-    width: 25px;
-    height: 25px;
-    font-size: 20px;
-}
-#play_pause .play::before{
-    content: '\f144';
-}
-#play_pause .pause::before{
-    content: '\f28b';
-}
-
-
-.orange_bar{
-    width: 100%;
-    background-color: black;
-    height: 5px;
-    cursor: pointer;
-}
-.orange_juice{
-    height: 5px;
-    background-color: salmon;
-    cursor: pointer;
-}
-.btnVideo{
-    margin-left: 1rem;
 }
 .titre_photo{
     display: flex;
@@ -430,6 +373,19 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 14;
+}
+.video_visible_lightBox{
+    display: block;
+    position: absolute;
+    width: 60%;
+    height: fit-content;
+    object-fit: contain;
+    object-position: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 16;
 }
 @media screen and ( max-width: 700px){
     .img-visible-lightBox{

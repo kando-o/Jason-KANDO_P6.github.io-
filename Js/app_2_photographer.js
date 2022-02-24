@@ -30,9 +30,6 @@ function getData() {
          alert(error)
      })
 }
-
-
-
 var IDPHOTOGRAPHER = -1;
 var PHOTOGRAPHER = null;
 var ARRAY_MEDIAS = [];
@@ -44,7 +41,7 @@ function getParamID(){
 	const urlURL = new URL(location.href);
 	// extract "id" from parameters
 	IDPHOTOGRAPHER = parseInt(urlURL.searchParams.get('id')); // Transform l'argument en chaine et renvoie un entier ou Nan
-	console.log(IDPHOTOGRAPHER);
+	console.log( "Id du photographe selectionner" + " = " + IDPHOTOGRAPHER);
 	return IDPHOTOGRAPHER;
 }
 /**
@@ -53,28 +50,16 @@ function getParamID(){
 async function loadData(){
 	// get datas from local storage or API
     const datas = await getData()
-    console.log(datas);
-	
+    console.log("Donées du data.json ="  , datas);
 	// get photographer by its id
     PHOTOGRAPHER = datas.photographers.find(element => {
 		return element.id == IDPHOTOGRAPHER;
 	});
-
 	//extract photographer's medias from medias
     ARRAY_MEDIAS = datas.media.filter((media) => media.photographerId == IDPHOTOGRAPHER);
 }
-/**
- * @function {} Main | Rendu global de la page
- * @generator {} initLightBox |
- * @event {} LightBoxEvents |
- * @returns {} getParamID | Recupère l'id dans l'URL
- * @function {} loadData | Recupère tout les données
- * @function {} Formulaire |
- * @generator {} MediaLightBoxLinks | Fait apparaitre le lightBox  
- * 
- */
-async function main() {
 
+async function main() {
 	getParamID();
 	await loadData();
 	initLightBox();
@@ -83,104 +68,98 @@ async function main() {
 	formulaire(PHOTOGRAPHER)
 	generateMediaLightBoxLinks();
 }
-
 async function formulaire() {
 	await getData()
 			//Bouton Formulaire
-	const bgFormulaire = document.querySelector('.bgFormulaire')
-	const formulaireContacte = document.querySelector('.formulaire')
-	const btnContactPhotographer = document.querySelector('.btn_ContactPhotographer')
-	const btnFormulaireClose = document.querySelector('.btnFormulaireClose')
-	btnFormulaireClose.nextElementSibling.innerHTML = `${PHOTOGRAPHER.name}`
-	console.log(PHOTOGRAPHER);
+	const bgFormulaire = document.querySelector('.bgFormulaire');
+	const formulaireContacte = document.querySelector('.formulaire');
+	const btnContactPhotographer = document.querySelector('.btn_ContactPhotographer');
+	const btnFormulaireClose = document.querySelector('.btnFormulaireClose');
 
+	btnFormulaireClose.nextElementSibling.innerHTML = `${PHOTOGRAPHER.name}`;
 	btnContactPhotographer.addEventListener('click', () => {
-		// bgFormulaire.style.visibility = "visible"
-		bgFormulaire.style.display = "block"
-		formulaireContacte.style.display = "block"
-		btnFormulaireClose.focus() // Permet de focus sur le formulaire fermer le formulaire avec *espace*
+		bgFormulaire.style.display = "block";
+		formulaireContacte.style.display = "block";
+		btnFormulaireClose.focus(); // Permet de focus sur le formulaire fermer le formulaire avec *espace*
 	})
 	btnFormulaireClose.addEventListener('click', () => {
-		bgFormulaire.style.display = "none"
-		formulaireContacte.style.display = "none"
+		bgFormulaire.style.display = "none";
+		formulaireContacte.style.display = "none";
 	})
 	formulaireContacte.addEventListener('keydown', (e) => {
-		// console.log(e.keyCode);
 		if (e.keyCode === 27) {
-			bgFormulaire.style.display = "none"
-			formulaireContacte.style.display = "none"
+			bgFormulaire.style.display = "none";
+			formulaireContacte.style.display = "none";
 		}
 	})
 	bgFormulaire.addEventListener('click', (e) => {
-		
-		bgFormulaire.style.display = "none"
-		formulaireContacte.style.display = "none"
+		bgFormulaire.style.display = "none";
+		formulaireContacte.style.display = "none";
 	})
 
 			// Validation | Regex Formulaire
-	const formulaire = document.querySelector('.formulaire')
-	const prenom = document.getElementById('prenom')
-	const nom = document.getElementById('nom')
-	const email = document.getElementById('email')
-	const spanErrorPrenom = document.querySelector('.mesgErrorPrenom')
-	const spanErrorNom = document.querySelector('.mesgErrorNom')
-	const spanErrorEmail = document.querySelector('.mesgErrorEmail')
-	const submitForm = document.querySelector('.submit')
+	const formulaire = document.querySelector('.formulaire');
+	const prenom = document.getElementById('prenom');
+	const nom = document.getElementById('nom');
+	const email = document.getElementById('email');
+	const spanErrorPrenom = document.querySelector('.mesgErrorPrenom');
+	const spanErrorNom = document.querySelector('.mesgErrorNom');
+	const spanErrorEmail = document.querySelector('.mesgErrorEmail');
+	const submitForm = document.querySelector('.submit');
 	const closeModalMerci = document.querySelector('.close-modal-merci');
-	const modal_merci = document.querySelector('.modal_merci')
-	const btnMerci = document.querySelector('.btn-merci')
+	const modal_merci = document.querySelector('.modal_merci');
+	const btnMerci = document.querySelector('.btn-merci');
 	
-	console.log();
-	
-	prenom.addEventListener('input', (e) => {
-		console.log(e.target.value) 
+	prenom.addEventListener('input', (e) => { 
 		let state = validation(prenom.value, spanErrorPrenom)
 		OnValidation(prenom, state)
+		return state
 	})
-	nom.addEventListener('change', (e) => {
-		let state = validation(nom.value, spanErrorNom)
-		OnValidation(nom, state)
+	nom.addEventListener('input', (e) => {
+		// let state = validation(nom.value, spanErrorNom)
+		// OnValidation(nom, state)
+		validationNom()
 	})
 	email.addEventListener('input', (e) => {
 		let state = validationEmail( email.value, spanErrorEmail)
 		OnValidation(email, state)
-
 	})
 	
-	function validation(pName, pError) {
+	function validation(pName) {
 		//Regex manier 1 *Voir ValidationNom pour 2ème manier de faire*
 
-	champInputText = false
-	let msgError;
-	pError.innerHTML = msgError
+		champInputText = false
+		let msgError;
+		spanErrorPrenom.innerHTML = msgError
 
-	console.log(pName);
 		if (!/[a-z]/g.test(pName)) {
 			console.log('ChampPrénom --> il manque une minuscule');
 			msgError = 'il manque une minuscule';
 		} else if (!/[A-Z]/g.test(pName)) {
 			console.log('ChampPrénom --> il manque une majuscule');
-			msgError = 'il manque une majuscule'
+			msgError = 'il manque une majuscule';
 		} else if (pName.length < 2) {
 			console.log('ChampPrénom --> il faut au moins 2 carractères');
-			msgError = 'il faut au moins 2 carractères'
+			msgError = 'il faut au moins 2 carractères';
 		} else {
-			console.log('ChampNom --> All condition true');
-			champInputText = true
-			msgError = " "
+			console.log('ChampPrénom --> All condition true');
+			champInputText = true;
+			msgError = " ";
 		}
+
 		if (msgError.length){
-			pError.innerHTML = msgError
+			spanErrorPrenom.innerHTML = msgError
 		}
 		return champInputText;
 	}
 
+	//Regex si regex true alors *OnValidation* => true / false
 	function OnValidation (pField, pState){
 		if (pState == true) {
 			console.log('ChampsInputText OK');
 			pField.classList.remove('champInputText-invalid')
-			pField.classList.add('champInputText-valid')
-			pState.innerHTML = "Good"
+			pField.classList.add('champInputText-valid');
+			// pState.innerHTML = "Good"
 			return true
 		} else {
 			console.log('ChampsInputText NOK');
@@ -189,11 +168,10 @@ async function formulaire() {
 			return false
 		}
 	}
-
+	 	//Regex 2éme manière de faire
 	function validationNom() {
-		console.log(nom.value);
-
 		champInputText = false
+
 		if (!/[a-z]/g.test(nom.value)) {
 			console.log('ChampNom --> il manque une minuscule');
 			msgError = 'il manque une minuscule';
@@ -207,7 +185,6 @@ async function formulaire() {
 			console.log('ChampNom --> All condition true');
 			champInputText = true
 		}
-
 		if (champInputText == true) {
 			console.log('ChampNom --> ChampsInputText OK');
 			spanErrorNom.innerHTML = ""
@@ -222,7 +199,7 @@ async function formulaire() {
 			return false
 		}
 	}
-
+			//Fin 2ème manier de faire
 	function validationEmail(pEmail, pError) {
 		pError.textContent = ''
 		let champInputText = false
@@ -243,16 +220,17 @@ async function formulaire() {
 
 		e.preventDefault()
 		if ( validationNom(nom) && validation(prenom) ) {
-			console.log('condition validation Nom | Prénom OK');
+			console.log('condition validation Nom OK | Prénom OK');
 			formulaire.style.display = "none"
 			modal_merci.style.display = "block"
 		} else {
-			console.log('condition validation Nom | Prénom NOK');
+			console.log('condition validation Nom NOK | Prénom NOK');
 			// e.preventDefault()
 		}
 	})		
 	btnMerci.addEventListener('click', () => {
 		formulaire.submit()
+		console.log(`Le formulaire au nom de ${nom.value , prenom.value} à bien été envoyer`);
 	})
 	closeModalMerci.addEventListener('click', () => {
 		bgFormulaire.style.display = "none"
@@ -283,12 +261,12 @@ async function initPhotographer(cardPhoto){
         <div class="bloc_top">
             <section class="card_Photographer">
                 <div class="infoPhotograper">          
-                    <h1> ${cardPhoto.name} </h1>
-                    <p> ${cardPhoto.city}, ${cardPhoto.country}</p>
-                    <p>${cardPhoto.tagline}</p>
+                    <h1 tabindex="0"> ${cardPhoto.name} </h1>
+                    <p tabindex="0"> ${cardPhoto.city}, ${cardPhoto.country}</p>
+                    <p tabindex="0">${cardPhoto.tagline}</p>
                 </div> 
                 <button class="btn_ContactPhotographer" type="button">Contactez-moi</button>
-                <img src="/Sample_Photos/Photographers-ID-Photos/${cardPhoto.portrait}" role="img" alt="Photo de profil du photographe">
+                <img src="/Sample_Photos/Photographers-ID-Photos/${cardPhoto.portrait}" role="img" aria-label="Photo de profil du photographe" alt="Photo de profil du photographe" tabindex="0">
             </section>
         </div> 
     `
@@ -324,10 +302,6 @@ async function initGadgets(photographe, medias){
 	let clickLike = document.querySelectorAll('.cardLikes');
 	
 	// Fonction Like
-/**
- * 
- * @param {Number} count | addition des likes du photographer de --> media.likes 
- */
 	function UpdateOverlayLikes(count){
 		likesTotal.innerHTML = `<p>love ${count}</p>`
 	};
@@ -347,7 +321,6 @@ async function initGadgets(photographe, medias){
 			console.log('clickLove', likesGlobal,likesCount.textContent);
 		})
 	});
-
 	function UpdateLike(elem){
 
 		let id = elem.id;
@@ -450,72 +423,52 @@ function initGalerie(galerieMedia, idPhoto) {
 	elemMaster.id = "id_"+galerieMedia.id;
 	elemMaster.date = galerieMedia.date;
 	elemMaster.Title = galerieMedia.title;
-	elemMaster.classList.add('card_galerieMaster')
-	// console.log(objMedia);
-	//Pourquoi avoir mit une condition. une simple décla aurai pu faire l'affaire 2x la meme chose
+	elemMaster.classList.add('card_galerieMaster');
+
     if (galerieMedia.hasOwnProperty('image')) {
 		objMedia = `<img src="/Sample_Photos/${idPhoto.name}/${galerieMedia.image}" alt="${galerieMedia.alt}">`;
-		// document.querySelector('.controls').style.display = 'none'
-
-    }else if (galerieMedia.hasOwnProperty('image')) {
-		objMedia = `<img src="/Sample_Photos/${idPhoto.name}/${galerieMedia.image}" alt="${galerieMedia.alt} ">`;
-    } else if (galerieMedia.hasOwnProperty('video')) {
-		
+	} else if (galerieMedia.hasOwnProperty('video')) {
 		objMedia = `<video class="mediaVideo" src="/Sample_Photos/${idPhoto.name}/${galerieMedia.video}" alt="${galerieMedia.alt}" controls>`;
 	}
 
-	async function togglePlayPause() {
-		await getData()
-		let video = document.querySelector('.mediaVideo')
-		let btnVideoPlayPause = document.querySelector('#play_pause')
-		let mute = document.querySelector('#mute')
-		let juice = document.querySelector('#orange_juice')
-		let volumeSlider = document.querySelector('#volumeSlider')
-
-		// video.play()
-		
-	}
-	togglePlayPause()
-
 	elemMaster.innerHTML =  
 	`
-	
-		<div class="card_galerie" role="dialog" aria-label="galeri de petite carte" >
+		<div tabindex="0" class="card_galerie" role="dialog" aria-label="galeri de petite carte" >
 			${objMedia}
 		</div>  
 		                  
 		<div class="titre_photo">
-			<p>${galerieMedia.title}</p>
-			<p class="cardLikes"><span class="likesCount" id="${galerieMedia.id}">${galerieMedia.likes}</span><i class="fas fa-heart" aria-hidden="true"></i></p>
+			<p tabindex="0">${galerieMedia.title}</p>
+			<p tabindex="0" class="cardLikes"><span class="likesCount" id="${galerieMedia.id}">${galerieMedia.likes}</span><i class="fas fa-heart" aria-hidden="true"></i></p>
 		</div>
 	`
 	document.querySelector('.galerie_Photographer').appendChild(elemMaster)
-
 }
 const LIGHTBOX =  {
 	lightBox : null,
 	srcEnCourSlider : null,
+	srcEnCourSliderVideo : null,
 	allPicsLightBox : null,
 	leftLightBox : null,
 	rightLightBox : null,
 	fermerLightBox : null,
 	photoEnCours : null,
+	videoEnCours : null,
 	indexEnCours : 0
 }
 function initLightBox(){
 	LIGHTBOX.lightBox = document.querySelector('.lightBox')
+	LIGHTBOX.lightBox.tabIndex = 0;
 	LIGHTBOX.srcEnCourSlider = document.querySelector('.img-visible-lightBox')
+	LIGHTBOX.srcEnCourSliderVideo = document.querySelector('.video_visible_lightBox')
 	LIGHTBOX.allPicsLightBox = Array.from(document.querySelectorAll(".card_galerie"))
 	LIGHTBOX.leftLightBox = document.querySelector('.btnSlide--left')
 	LIGHTBOX.rightLightBox = document.querySelector('.btnSlide--right')
 	LIGHTBOX.fermerLightBox = document.querySelector('.btn-closeLightBox')
 	console.log();
 }
-
 // Slider
 function generateLightBoxEvents(){
-
-	console.log(LIGHTBOX.lightBox); 
 
 	LIGHTBOX.lightBox.addEventListener("keydown", (a) =>{
 		console.log(a.keyCode, "push espace ou echap" )
@@ -528,12 +481,15 @@ function generateLightBoxEvents(){
 			console.log("index ="+LIGHTBOX.indexEnCours,"photo="+LIGHTBOX.srcEnCourSlider.src);
 			LIGHTBOX.indexEnCours = (LIGHTBOX.indexEnCours + 1)%(LIGHTBOX.allPicsLightBox.length);
 			LIGHTBOX.srcEnCourSlider.src = LIGHTBOX.allPicsLightBox[LIGHTBOX.indexEnCours].querySelector("img").src;
+
 		}
 		if (a.keyCode == 37) {
 			console.log(a.keyCode, "push left");
 			console.log("index ="+LIGHTBOX.indexEnCours,"photo="+LIGHTBOX.srcEnCourSlider.src, "Push keyCode 39 => btn Left");
 			LIGHTBOX.indexEnCours = LIGHTBOX.indexEnCours==0 ? LIGHTBOX.allPicsLightBox.length-1 : LIGHTBOX.indexEnCours-1;
 			LIGHTBOX.srcEnCourSlider.src = LIGHTBOX.allPicsLightBox[LIGHTBOX.indexEnCours].querySelector("img").src;
+			// LIGHTBOX.srcEnCourSliderVideo.src = LIGHTBOX.allPicsLightBox[LIGHTBOX.indexEnCours].querySelector("video").src
+
 		}
 	})
 	LIGHTBOX.fermerLightBox.addEventListener('click', (e) => {
@@ -542,38 +498,68 @@ function generateLightBoxEvents(){
 	LIGHTBOX.rightLightBox.addEventListener('click', () => {
 		LIGHTBOX.indexEnCours = (LIGHTBOX.indexEnCours + 1)%(LIGHTBOX.allPicsLightBox.length);
 		LIGHTBOX.srcEnCourSlider.src = LIGHTBOX.allPicsLightBox[LIGHTBOX.indexEnCours].querySelector("img").src;
+		// LIGHTBOX.srcEnCourSliderVideo.src = LIGHTBOX.allPicsLightBox[LIGHTBOX.indexEnCours].querySelector("video").src
+
 		console.log("index ="+LIGHTBOX.indexEnCours,"photo="+LIGHTBOX.srcEnCourSlider.src);
 	})
 	LIGHTBOX.leftLightBox.addEventListener('click', () => {
 		LIGHTBOX.indexEnCours = LIGHTBOX.indexEnCours==0 ? LIGHTBOX.allPicsLightBox.length-1 : LIGHTBOX.indexEnCours-1;
 		LIGHTBOX.srcEnCourSlider.src = LIGHTBOX.allPicsLightBox[LIGHTBOX.indexEnCours].querySelector("img").src;
+		// LIGHTBOX.srcEnCourSliderVideo.src = LIGHTBOX.allPicsLightBox[LIGHTBOX.indexEnCours].querySelector("video").src
+
 		console.log("index ="+LIGHTBOX.indexEnCours,"photo="+LIGHTBOX.srcEnCourSlider.src);
 	})
-	
 }
-
 function generateMediaLightBoxLinks(){
 	LIGHTBOX.allPicsLightBox = Array.from(document.querySelectorAll(".card_galerie"));
-	console.log(LIGHTBOX.allPicsLightBox);
+	console.log();
 	let index = 0;
 	LIGHTBOX.allPicsLightBox.forEach((item) => {
 		item.listindex=index++;
 	})
-
 	LIGHTBOX.allPicsLightBox.forEach((item) => {
-		 console.log()
-		item.focus()
-		item.addEventListener('click', () => {
-			console.log("click  => open lihgtBox");
-			LIGHTBOX.lightBox.style.display = "block";
-			LIGHTBOX.srcEnCourSlider.src = item.querySelector("img").src; // image regarder src = l'image qu'on vient de cliquer
-			LIGHTBOX.photoEnCours = item; // élément HTML de manier générale | élément cliquer
-			LIGHTBOX.indexEnCours = item.listindex; // index de la photo en cours
-			console.log("index=",LIGHTBOX.indexEnCours, "photo =", item.src);
-		})
+		console.log();
+		item.onclick = item.onkeydown = (event) => {
+			if(event.type=="click" || (event.type=="keydown" && event.keyCode==13)){
+				console.log("click  => open lihgtBox","Item =" , item);
+				LIGHTBOX.lightBox.style.display = "block";
+				// LIGHTBOX.srcEnCourSlider.src = item.querySelector("img").src; // image qu'on vient de cliquer
+				LIGHTBOX.srcEnCourSlider.src = item.querySelector("img").src; // image qu'on vient de cliquer
+				LIGHTBOX.srcEnCourSliderVideo.src = item.querySelector("video").src;
+				
+				
+				LIGHTBOX.photoEnCours = item; // élément HTML de manier générale | élément cliquer
+				LIGHTBOX.indexEnCours = item.listindex; // index de la photo en cours
+				console.log("index=",LIGHTBOX.indexEnCours, "photo =", item.src);
+				console.log("click  => open lihgtBox","Item =" , item);
+				LIGHTBOX.lightBox.focus();
+
+
+			}
+		}
 	})
-
-	
-
 }
 main()
+
+
+class A {
+	constructor(){
+		this.x = [0,1,2,3];
+	}
+	addEventListenner(a,v){
+		switch(a){
+			case "click" : this.x[0] = v; break;
+			case "keydown" : this.x[1] = v; break;
+			case "keyup" : this.x[2] = v; break;
+		}
+	}
+	
+	set onclick(v){ this.addEventListenner("click",v)}
+
+
+
+}
+
+let element = new A();
+element.addEventListenner("click", 5);
+element.onclick = 5;
